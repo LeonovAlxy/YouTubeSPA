@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import apiYT from '../services/youtubeApi';
 // export const deleteCompletedTasks = createAsyncThunk(
 //   'tasks/deleteCompletedTasks',
 //   async (_, { getState, rejectWithValue }) => {
@@ -18,95 +18,59 @@ import { createSlice } from '@reduxjs/toolkit';
 //     }
 //   }
 // );
+export const fetchVideos = createAsyncThunk(
+  'videos/fetch Videos',
+  async (searchInput, { getState, rejectWithValue }) => {
+    if (!searchInput.trim()) return rejectWithValue('Поисковый запрос не может быть пустым');
+    try {
+      const data = await apiYT.get('/search', {
+        params: { q: searchInput, maxResults: 5 },
+      });
+
+      const items = data.items.map((item) => ({
+        id: item.id.videoId,
+        title: item.snippet.title,
+        channelTitle: item.snippet.channelTitle,
+      }));
+
+      return items;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  },
+);
 
 const videosSlice = createSlice({
-  name: 'tasks',
+  name: 'videos',
   initialState: {
     videos: [],
     loading: false,
     errors: null,
   },
-  reducers: {
-    addInputText(state, action) {
-      state.inputText = action.payload;
-    },
-    addErrors(state, action) {
-      state.errors = action.payload;
-    },
-
-    reverse(state) {
-      state.tasks.reverse();
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchVideos.fulfilled, (state, action) => {
+        state.videos = action.payload;
+        state.loading = false;
+      })
+      .addCase(fetchVideos.rejected, (state, action) => {
+        state.loading = false;
+        state.errors = action.payload;
+      })
+      .addMatcher(
+        (action) => action.type.endsWith('/pending'),
+        (state) => {
+          state.loading = true;
+        },
+      );
   },
-  //   extraReducers: (builder) => {
-  //     builder
-  //       .addCase(getTasks.fulfilled, (state, action) => {
-  //         state.tasks = action.payload;
-  //         state.loading = false;
-  //       })
-
-  //       .addCase(addInputTask.fulfilled, (state, action) => {
-  //         state.tasks.push(action.payload);
-  //         state.inputText = '';
-  //         state.errors = '';
-  //         state.loading = false;
-  //       })
-  //       .addCase(deleteTask.fulfilled, (state, action) => {
-  //         const index = state.tasks.findIndex((item) => item.id === action.payload);
-  //         if (index !== -1) {
-  //           state.tasks.splice(index, 1);
-  //         }
-  //         state.loading = false;
-  //       })
-  //       .addCase(switchIsDone.fulfilled, (state, action) => {
-  //         const taskId = action.payload.id;
-  //         const task = state.tasks.find((t) => t.id === taskId);
-  //         if (task) {
-  //           task.isCompleted = !task.isCompleted;
-  //         }
-  //         state.loading = false;
-  //       })
-  //       .addCase(updateTaskName.fulfilled, (state, action) => {
-  //         const task = state.tasks.find((task) => task.id === action.payload.id);
-  //         if (task) {
-  //           task.title = action.payload.newTitle;
-  //         }
-  //         state.loading = false;
-  //       })
-  //       .addCase(getDoneTasks.fulfilled, (state, action) => {
-  //         state.tasks = action.payload;
-  //         state.loading = false;
-  //       })
-  //       .addCase(getActiveTasks.fulfilled, (state, action) => {
-  //         state.tasks = action.payload;
-  //         state.loading = false;
-  //       })
-  //       .addCase(deleteCompletedTasks.fulfilled, (state) => {
-  //         state.loading = false;
-  //         state.tasks = state.tasks.filter((task) => !task.isCompleted);
-  //       })
-
-  //       .addMatcher(
-  //         (action) => action.type.endsWith('/rejected'),
-  //         (state, action) => {
-  //           state.loading = false;
-  //           state.errors = action.payload || action.error?.message || 'Произошла ошибка';
-  //         }
-  //       )
-  //       .addMatcher(
-  //         (action) => action.type.endsWith('/pending'),
-  //         (state) => {
-  //           state.loading = true;
-  //         }
-  //       );
-  //   },
-
   selectors: {
-    selectTasks: (state) => state.tasks,
+    selectVideos: (state) => state.videos,
   },
 });
 
-export const { addInputText, reverse, addErrors } = videosSlice.actions;
+// export const { addInputText, reverse, addErrors } = videosSlice.actions;
 
 export const { selectTasks } = videosSlice.selectors;
 
