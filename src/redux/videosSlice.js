@@ -20,7 +20,7 @@ import apiYT from '../services/youtubeApi';
 // );
 export const fetchVideos = createAsyncThunk(
   'videos/fetch Videos',
-  async (searchInput, { getState, rejectWithValue }) => {
+  async (searchInput, { rejectWithValue }) => {
     if (!searchInput.trim()) return rejectWithValue('Поисковый запрос не может быть пустым');
     try {
       const data = await apiYT.get('/search', {
@@ -43,11 +43,23 @@ export const fetchVideos = createAsyncThunk(
 const videosSlice = createSlice({
   name: 'videos',
   initialState: {
+    searchText: '',
     videos: [],
     loading: false,
     errors: null,
+    viewMode: 'grid',
   },
-  reducers: {},
+  reducers: {
+    setSearchText: (state, action) => {
+      state.searchText = action.payload;
+    },
+    clearErrors: (state) => {
+      state.errors = null;
+    },
+    setViewMode: (state, action) => {
+      state.viewMode = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchVideos.fulfilled, (state, action) => {
@@ -67,11 +79,12 @@ const videosSlice = createSlice({
   },
   selectors: {
     selectVideos: (state) => state.videos,
+    selectSearchText: (state) => state.searchText,
   },
 });
 
-// export const { addInputText, reverse, addErrors } = videosSlice.actions;
+export const { setSearchText, clearErrors, setViewMode } = videosSlice.actions;
 
-export const { selectTasks } = videosSlice.selectors;
+export const { selectTasks, selectSearchText } = videosSlice.selectors;
 
 export default videosSlice.reducer;

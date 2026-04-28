@@ -1,54 +1,46 @@
-import Button from '@mui/material/Button';
-import { useState } from 'react';
-import { fetchVideos } from '../redux/videosSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import { Container, Box, Paper } from '@mui/material';
+import Input from './Search/Input';
+import Videos from './Search/Videos/Videos';
+import viteLogo from '../assets/vite.svg';
 
 function Layout() {
-  const [inputSearch, setSearch] = useState('Машина');
-
-  // 1. input отдельный с функцией запроса и кнопки.
-  // 2. mui карточка обработка компонента
-
-  const handleSearchChange = (e) => setSearch(e.target.value);
-  const dispatch = useDispatch();
-  const { loading, videos } = useSelector((store) => store.videos);
-
-  const handleSearchClick = () => dispatch(fetchVideos(inputSearch));
   return (
-    <div>
-      <input type="text" value={inputSearch} onChange={handleSearchChange} />
-      <Button variant="contained" onClick={handleSearchClick}>
-        {loading ? 'Поиск...' : 'Искать'}
-      </Button>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        bgcolor: '#f5f5f5',
+        background: 'linear-gradient(135deg, #b2dff7 0%, #fafafa 100%)',
+      }}
+    >
+      <Container maxWidth="xl" sx={{ py: 4 }}>
+        {/* Шапка с заголовком (опционально) */}
+        <Box sx={{ mb: 4, textAlign: 'center' }}>
+          <Box
+            component="img"
+            src={viteLogo} // можно добавить логотип
+            sx={{ height: 48, mb: 2 }}
+            alt="MYTube"
+          />
+        </Box>
 
-      <div style={{ marginTop: '20px', display: 'grid', gap: '10px' }}>
-        {videos.map((video) => (
-          <div
-            key={video.id}
-            style={{
-              border: '1px solid #b31d1d',
-              borderRadius: '12px',
-              width: '300px',
-              padding: '12px',
-            }}
-          >
-            <iframe
-              width="270px"
-              height="150px"
-              src={`https://www.youtube.com/embed/${video.id}`}
-              title={video.title}
-              frameBorder="0"
-              allow="autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-            <div style={{ marginTop: '12px' }}>
-              <h3>{video.title}</h3>
-              <p>Канал: {video.channelTitle}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+        {/* Компонент поиска */}
+        <Paper
+          elevation={0}
+          sx={{
+            p: 1,
+            borderRadius: 4,
+            bgcolor: 'white',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+            maxWidth: '700px',
+            justifySelf: 'center',
+          }}
+        >
+          <Input />
+        </Paper>
+
+        <Videos />
+      </Container>
+    </Box>
   );
 }
 
