@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { fetchVideos } from '../../redux/videosSlice';
 import { setSearchText } from '../../redux/videosSlice';
+import { InputAdornment } from '@mui/material';
+import AddFavSearch from './AddFavSearch';
 
 function Input() {
   const [inputSearch, setSearch] = useState('React');
@@ -33,7 +35,7 @@ function Input() {
         gap: 2,
         alignItems: 'center',
         justifyContent: 'center',
-        mb: 4,
+        mb: 2,
         mt: 2,
       }}
     >
@@ -54,10 +56,8 @@ function Input() {
             },
           },
         }}
-        InputProps={{
-          sx: { borderRadius: 3 },
-        }}
       />
+      <AddFavSearch searchQuery={inputSearch} />
       <Button
         variant="contained"
         onClick={handleSearchClick}

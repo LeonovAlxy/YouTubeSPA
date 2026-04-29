@@ -19,7 +19,6 @@ function MarkUpButtons() {
       sx={{
         display: 'flex',
         justifyContent: 'right',
-        mr: 2,
       }}
     >
       <ButtonGroup variant="text" aria-label="Basic button group">
