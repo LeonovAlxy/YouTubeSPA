@@ -1,15 +1,14 @@
 import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import Tooltip from '@mui/material/Tooltip';
+import { addFavorite } from '../../utils/favorites';
 
 function AddFavSearch({ searchQuery }) {
   const handleSave = () => {
     if (!searchQuery?.trim()) {
-      alert('Введите поисковый запрос');
+      alert('Введите запрос');
       return;
     }
-    console.log('Сохранить запрос:', searchQuery);
-    // сохранить в локал по юзеру логин
+    addFavorite(searchQuery);
   };
 
   return (

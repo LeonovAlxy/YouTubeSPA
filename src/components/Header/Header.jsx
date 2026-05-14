@@ -1,6 +1,7 @@
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
-import FavVid from './FavVid';
+import { NavLink } from 'react-router';
+
 import Exit from './Exit';
 function Header() {
   return (
@@ -27,7 +28,13 @@ function Header() {
         }}
       >
         <VideoLibraryIcon sx={{ color: '#1976d2', fontSize: 60 }} />
-        <FavVid />
+        <NavLink to="/">
+          {({ isActive }) => <Button variant={isActive ? 'contained' : 'text'}>Поиск</Button>}
+        </NavLink>
+
+        <NavLink to="/favorites">
+          {({ isActive }) => <Button variant={isActive ? 'contained' : 'text'}>Избранное</Button>}
+        </NavLink>
       </Box>
 
       <Exit />

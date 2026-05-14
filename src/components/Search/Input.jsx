@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { fetchVideos } from '../../redux/videosSlice';
 import { setSearchText } from '../../redux/videosSlice';
-import { InputAdornment } from '@mui/material';
 import AddFavSearch from './AddFavSearch';
 
 function Input() {
