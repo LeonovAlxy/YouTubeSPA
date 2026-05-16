@@ -9,9 +9,9 @@ import { setSearchText } from '../../redux/videosSlice';
 import AddFavSearch from './AddFavSearch';
 
 function Input() {
-  const [inputSearch, setSearch] = useState('React');
+  const { loading, searchText } = useSelector((store) => store.videos);
+  const [inputSearch, setSearch] = useState(searchText);
   const dispatch = useDispatch();
-  const { loading } = useSelector((store) => store.videos);
 
   const handleSearchChange = (e) => setSearch(e.target.value);
   const handleSearchClick = () => {

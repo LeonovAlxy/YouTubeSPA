@@ -1,7 +1,10 @@
 import { Box } from '@mui/material';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
-import { getFavorites } from '../../utils/favorites';
-import Header from './Header';
+import { getFavorites } from '../../../utils/favorites';
+import Header from '../Header';
+import SearchButton from './SearchButton';
+import DeleteButton from './DeleteButton';
+import EditButton from './EditButton';
 
 function FavVid() {
   const favorites = getFavorites();
@@ -39,6 +42,9 @@ function FavVid() {
             }}
           >
             {item}
+            <SearchButton item={item} />
+            <EditButton />
+            <DeleteButton />
           </Box>
         ))}
       </Box>

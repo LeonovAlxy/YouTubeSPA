@@ -80,11 +80,12 @@ const videosSlice = createSlice({
   selectors: {
     selectVideos: (state) => state.videos,
     selectSearchText: (state) => state.searchText,
+    selectLoading: (state) => state.loading,
   },
 });
 
 export const { setSearchText, clearErrors, setViewMode } = videosSlice.actions;
 
-export const { selectTasks, selectSearchText } = videosSlice.selectors;
+export const { selectTasks, selectSearchText, selectLoading } = videosSlice.selectors;
 
 export default videosSlice.reducer;

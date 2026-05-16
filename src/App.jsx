@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 import AuthPage from './components/auth/AuthPage';
 import PrivateRoute from './Routes/PrivateRoute';
 import { Box } from '@mui/material';
-import FavVid from './components/header/FavVid';
+import FavVid from './components/header/FavVid/FavVid';
 
 function App() {
   return (

@@ -21,7 +21,7 @@ function Videos() {
   if (!videos.length && !loading) {
     return (
       <Box sx={{ textAlign: 'center', mt: 8, p: 3 }}>
-        <Typography variant="h6">😕 Видео не найдены</Typography>
+        <Typography variant="h6">Видео не найдены</Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
           Попробуйте ввести другой запрос
         </Typography>
