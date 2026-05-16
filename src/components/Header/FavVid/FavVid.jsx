@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import { getFavorites } from '../../../utils/favorites';
 import Header from '../Header';
@@ -34,6 +34,7 @@ function FavVid() {
                 boxShadow: '0 12px 24px rgb(25, 118, 210)',
               },
               display: 'flex',
+              justifyContent: 'space-between',
               m: 1,
               p: 1,
               bgcolor: 'background.paper',
@@ -41,10 +42,12 @@ function FavVid() {
               borderColor: 'divider',
             }}
           >
-            {item}
-            <SearchButton item={item} />
-            <EditButton />
-            <DeleteButton />
+            <Typography sx={{ ml: 2, my: 'auto' }}> {item}</Typography>
+            <Box sx={{ display: 'flex', gap: 1 }}>
+              <SearchButton item={item} />
+              <EditButton />
+              <DeleteButton />
+            </Box>
           </Box>
         ))}
       </Box>
