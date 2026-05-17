@@ -42,9 +42,12 @@ function FavVid() {
               borderColor: 'divider',
             }}
           >
-            <Typography sx={{ ml: 2, my: 'auto' }}> {item}</Typography>
+            <Typography sx={{ ml: 2, my: 'auto' }}>
+              {' '}
+              {item.query} ({item.name})
+            </Typography>
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <SearchButton item={item} />
+              <SearchButton item={item.query} />
               <EditButton />
               <DeleteButton />
             </Box>
