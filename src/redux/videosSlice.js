@@ -3,11 +3,11 @@ import apiYT from '../services/youtubeApi';
 
 export const fetchVideos = createAsyncThunk(
   'videos/fetch Videos',
-  async ({ query, maxResults = 25 }, { rejectWithValue }) => {
+  async ({ query, maxResults = 25, order = 'relevance' }, { rejectWithValue }) => {
     if (!query.trim()) return rejectWithValue('Поисковый запрос не может быть пустым');
     try {
       const data = await apiYT.get('/search', {
-        params: { q: query, maxResults },
+        params: { q: query, maxResults, order },
       });
 
       const items = data.items.map((item) => ({

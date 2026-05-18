@@ -18,4 +18,13 @@ apiYT.interceptors.response.use(
   },
 );
 
+export const sortOptions = [
+  { value: 'relevance', label: 'По релевантности' },
+  { value: 'date', label: 'По дате' },
+  { value: 'viewCount', label: 'По просмотрам' },
+  { value: 'rating', label: 'По рейтингу' },
+  { value: 'title', label: 'По названию' },
+  { value: 'videoCount', label: 'По количеству видео' },
+];
+
 export default apiYT;

@@ -9,7 +9,13 @@ const SearchButton = ({ item }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClick = () => {
-    dispatch(fetchVideos({ query: item.query, maxResults: item.maxResults }));
+    dispatch(
+      fetchVideos({
+        query: item.query,
+        maxResults: item.maxResults,
+        order: item.sortBy || 'relevance',
+      }),
+    );
     dispatch(setSearchText(item.query));
     navigate('/');
   };

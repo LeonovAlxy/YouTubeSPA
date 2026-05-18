@@ -1,7 +1,19 @@
 import { useState, useEffect } from 'react';
-import { Modal, Box, TextField, Button, Typography, Slider } from '@mui/material';
+import {
+  Modal,
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Slider,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
+} from '@mui/material';
 import GridViewIcon from '@mui/icons-material/GridView';
 import ViewListIcon from '@mui/icons-material/ViewList';
+import { sortOptions } from '../../services/youtubeApi';
 
 const style = {
   position: 'absolute',
@@ -18,6 +30,7 @@ const style = {
 const SaveQueryModal = ({ open, onClose, searchQuery, onSave }) => {
   const [name, setName] = useState('');
   const [size, setSize] = useState(25);
+  const [sortBy, setSortBy] = useState('relevance');
 
   useEffect(() => {
     setName('');
@@ -29,7 +42,7 @@ const SaveQueryModal = ({ open, onClose, searchQuery, onSave }) => {
       alert('Введите название');
       return;
     }
-    onSave({ query: searchQuery, name: name.trim(), maxResults: size });
+    onSave({ query: searchQuery, name: name.trim(), maxResults: size, sortBy });
     onClose();
   };
 
@@ -48,6 +61,18 @@ const SaveQueryModal = ({ open, onClose, searchQuery, onSave }) => {
           onChange={(e) => setName(e.target.value)}
           required
         />
+
+        <FormControl fullWidth margin="normal" size="small">
+          <InputLabel>Сортировать по</InputLabel>
+          <Select value={sortBy} onChange={(e) => setSortBy(e.target.value)} label="Сортировать по">
+            {sortOptions.map((opt) => (
+              <MenuItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <Typography variant="subtitle2" gutterBottom sx={{ mt: 1 }}>
           Максимальное количество
         </Typography>

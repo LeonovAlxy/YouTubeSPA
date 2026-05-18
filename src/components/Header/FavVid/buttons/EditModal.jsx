@@ -1,7 +1,19 @@
 import { useState } from 'react';
-import { Modal, Box, TextField, Button, Typography, Slider } from '@mui/material';
+import {
+  Modal,
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Slider,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
+} from '@mui/material';
 import GridViewIcon from '@mui/icons-material/GridView';
 import ViewListIcon from '@mui/icons-material/ViewList';
+import { sortOptions } from '../../../../services/youtubeApi';
 
 const style = {
   position: 'absolute',
@@ -18,13 +30,15 @@ const style = {
 const EditModal = ({ item, open, onClose, onSave }) => {
   const [name, setName] = useState(item.name);
   const [size, setSize] = useState(item.maxResults);
+  const [query, setQuery] = useState(item.query);
+  const [sortBy, setSortBy] = useState('relevance');
 
   const handleSave = () => {
     if (!name.trim()) {
       alert('Введите название');
       return;
     }
-    onSave({ query: item.query, name: name.trim(), maxResults: size });
+    onSave({ query: query, name: name.trim(), maxResults: size, sortBy });
     onClose();
   };
 
@@ -34,7 +48,13 @@ const EditModal = ({ item, open, onClose, onSave }) => {
         <Typography variant="h6" component="h2" gutterBottom>
           Изменить запрос
         </Typography>
-        <TextField fullWidth margin="normal" label="Запрос" value={item.query} disabled />
+        <TextField
+          fullWidth
+          margin="normal"
+          label="Запрос"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
         <TextField
           fullWidth
           margin="normal"
@@ -43,6 +63,16 @@ const EditModal = ({ item, open, onClose, onSave }) => {
           onChange={(e) => setName(e.target.value)}
           required
         />
+        <FormControl fullWidth margin="normal" size="small">
+          <InputLabel>Сортировать по</InputLabel>
+          <Select value={sortBy} onChange={(e) => setSortBy(e.target.value)} label="Сортировать по">
+            {sortOptions.map((opt) => (
+              <MenuItem key={opt.value} value={opt.value}>
+                {opt.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <Typography variant="subtitle2" gutterBottom sx={{ mt: 1 }}>
           Максимальное количество
         </Typography>

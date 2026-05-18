@@ -1,6 +1,6 @@
 import { Box, ButtonGroup, Button } from '@mui/material';
-import { ViewListIcon, GridViewIcon } from '@mui/icons-material';
-
+import ViewListIcon from '@mui/icons-material/ViewList';
+import GridViewIcon from '@mui/icons-material/GridView';
 import { setViewMode } from '../../../redux/videosSlice';
 import { useDispatch } from 'react-redux';
 
