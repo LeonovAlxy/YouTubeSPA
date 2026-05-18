@@ -2,12 +2,13 @@ import { Box, Typography } from '@mui/material';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import { getFavorites } from '../../../utils/favorites';
 import Header from '../Header';
-import SearchButton from './SearchButton';
-import DeleteButton from './DeleteButton';
-import EditButton from './EditButton';
+import SearchButton from './buttons/SearchButton';
+import DeleteButton from './buttons/DeleteButton';
+import EditButton from './buttons/EditButton';
+import { useState } from 'react';
 
 function FavVid() {
-  const favorites = getFavorites();
+  const [favorites, setFavorites] = useState(getFavorites());
 
   return (
     <>
@@ -20,9 +21,9 @@ function FavVid() {
           justifyContent: 'flex-start',
         }}
       >
-        {favorites.map((item) => (
+        {favorites.map((item, index) => (
           <Box
-            key={item}
+            key={`${item.query}_${item.name}_${item.maxResults}`}
             sx={{
               width: '100%',
               maxWidth: 600,
@@ -47,9 +48,9 @@ function FavVid() {
               {item.query} ({item.name})
             </Typography>
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <SearchButton item={item.query} />
-              <EditButton />
-              <DeleteButton />
+              <SearchButton item={item} />
+              <EditButton item={item} index={index} setFavorites={setFavorites} />
+              <DeleteButton index={index} setFavorites={setFavorites} />
             </Box>
           </Box>
         ))}

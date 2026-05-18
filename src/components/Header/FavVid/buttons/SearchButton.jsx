@@ -1,6 +1,6 @@
 import { IconButton, CircularProgress, Tooltip } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { fetchVideos, setSearchText } from '../../../redux/videosSlice';
+import { fetchVideos, setSearchText } from '../../../../redux/videosSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
@@ -9,10 +9,9 @@ const SearchButton = ({ item }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClick = () => {
-    console.log('click');
+    dispatch(fetchVideos({ query: item.query, maxResults: item.maxResults }));
+    dispatch(setSearchText(item.query));
     navigate('/');
-    dispatch(fetchVideos(item));
-    dispatch(setSearchText(item));
   };
   return (
     <Tooltip title={'Поиск'}>

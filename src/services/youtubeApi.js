@@ -6,7 +6,7 @@ const apiYT = axios.create({
     key: import.meta.env.VITE_YOUTUBE_API_KEY,
     part: 'snippet',
     type: 'video',
-    maxResults: 12,
+    maxResults: 25,
   },
 });
 

@@ -1,14 +1,16 @@
 import { IconButton, Tooltip } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { fetchVideos, setSearchText } from '../../../redux/videosSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { deleteFavorite, getFavorites } from '../../../../utils/favorites';
+import { useSelector } from 'react-redux';
 
-const DeleteButton = () => {
+const DeleteButton = ({ index, setFavorites }) => {
   const { loading } = useSelector((store) => store.videos);
-  const dispatch = useDispatch();
+
   const handleClick = () => {
-    console.log('delete');
+    deleteFavorite(index);
+    setFavorites(getFavorites());
   };
+
   return (
     <Tooltip title={'Удалить'}>
       <IconButton onClick={handleClick} disabled={loading} color="default" size="small">

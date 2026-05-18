@@ -1,30 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiYT from '../services/youtubeApi';
-// export const deleteCompletedTasks = createAsyncThunk(
-//   'tasks/deleteCompletedTasks',
-//   async (_, { getState, rejectWithValue }) => {
-//     try {
-//       const store = getState();
-//       const completedTasks = store.tasks.tasks.filter((item) => item.isCompleted === true);
-//       if (completedTasks.length === 0) {
-//         return;
-//       }
-//       const deletePromises = completedTasks.map((task) => api.delete(`/todos/${task.id}`));
-//       await Promise.all(deletePromises);
 
-//       return;
-//     } catch (error) {
-//       return rejectWithValue(error.response?.data || error.message);
-//     }
-//   }
-// );
 export const fetchVideos = createAsyncThunk(
   'videos/fetch Videos',
-  async (searchInput, { rejectWithValue }) => {
-    if (!searchInput.trim()) return rejectWithValue('Поисковый запрос не может быть пустым');
+  async ({ query, maxResults = 25 }, { rejectWithValue }) => {
+    if (!query.trim()) return rejectWithValue('Поисковый запрос не может быть пустым');
     try {
       const data = await apiYT.get('/search', {
-        params: { q: searchInput, maxResults: 5 },
+        params: { q: query, maxResults },
       });
 
       const items = data.items.map((item) => ({

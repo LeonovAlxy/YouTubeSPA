@@ -1,6 +1,8 @@
 import { useState } from 'react';
+
 import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
 import SaveQueryModal from './SaveQueryModal';
 import { addFavorite } from '../../utils/favorites';
 

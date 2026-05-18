@@ -36,7 +36,6 @@ function Header() {
           {({ isActive }) => <Button variant={isActive ? 'contained' : 'text'}>Избранное</Button>}
         </NavLink>
       </Box>
-
       <Exit />
     </Box>
   );

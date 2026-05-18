@@ -1,10 +1,9 @@
 import { useSelector } from 'react-redux';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
+
+import { Box, Typography, CircularProgress, Button } from '@mui/material';
+
 import VideoCard from './VideoCard';
 import VideoCardList from './VideoCardList';
-import Button from '@mui/material/Button';
 import MarkUpButtons from './MarkupButtons';
 
 function Videos() {
@@ -21,9 +20,8 @@ function Videos() {
   if (!videos.length && !loading) {
     return (
       <Box sx={{ textAlign: 'center', mt: 8, p: 3 }}>
-        <Typography variant="h6">Видео не найдены</Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-          Попробуйте ввести другой запрос
+          Попробуйте ввести запрос
         </Typography>
       </Box>
     );

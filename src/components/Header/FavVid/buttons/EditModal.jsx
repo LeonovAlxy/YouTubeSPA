@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Modal, Box, TextField, Button, Typography, Slider } from '@mui/material';
 import GridViewIcon from '@mui/icons-material/GridView';
 import ViewListIcon from '@mui/icons-material/ViewList';
@@ -15,21 +15,16 @@ const style = {
   p: 4,
 };
 
-const SaveQueryModal = ({ open, onClose, searchQuery, onSave }) => {
-  const [name, setName] = useState('');
-  const [size, setSize] = useState(25);
-
-  useEffect(() => {
-    setName('');
-    setSize(25);
-  }, [open]);
+const EditModal = ({ item, open, onClose, onSave }) => {
+  const [name, setName] = useState(item.name);
+  const [size, setSize] = useState(item.maxResults);
 
   const handleSave = () => {
     if (!name.trim()) {
       alert('Введите название');
       return;
     }
-    onSave({ query: searchQuery, name: name.trim(), maxResults: size });
+    onSave({ query: item.query, name: name.trim(), maxResults: size });
     onClose();
   };
 
@@ -37,9 +32,9 @@ const SaveQueryModal = ({ open, onClose, searchQuery, onSave }) => {
     <Modal open={open} onClose={onClose}>
       <Box sx={style}>
         <Typography variant="h6" component="h2" gutterBottom>
-          Сохранить запрос
+          Изменить запрос
         </Typography>
-        <TextField fullWidth margin="normal" label="Запрос" value={searchQuery} disabled />
+        <TextField fullWidth margin="normal" label="Запрос" value={item.query} disabled />
         <TextField
           fullWidth
           margin="normal"
@@ -72,4 +67,4 @@ const SaveQueryModal = ({ open, onClose, searchQuery, onSave }) => {
   );
 };
 
-export default SaveQueryModal;
+export default EditModal;

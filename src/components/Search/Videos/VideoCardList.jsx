@@ -1,11 +1,6 @@
 import { useState } from 'react';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import IconButton from '@mui/material/IconButton';
+
+import { Card, CardMedia, CardContent, Typography, Box, Modal, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 const modalStyle = {

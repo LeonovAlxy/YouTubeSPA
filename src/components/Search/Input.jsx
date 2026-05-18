@@ -16,7 +16,7 @@ function Input() {
   const handleSearchChange = (e) => setSearch(e.target.value);
   const handleSearchClick = () => {
     if (inputSearch.trim()) {
-      dispatch(fetchVideos(inputSearch));
+      dispatch(fetchVideos({ query: inputSearch }));
       dispatch(setSearchText(inputSearch));
     }
   };
