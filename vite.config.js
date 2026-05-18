@@ -3,10 +3,11 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  base: '/YouTubeSPA/',
   server: {
     watch: {
-      usePolling: true, // обязательно для Windows/WSL
-      interval: 500, // проверка каждые 500 мс
+      usePolling: true,
+      interval: 500,
     },
     hmr: {
       protocol: 'ws',
